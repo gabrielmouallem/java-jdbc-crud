@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21/09/2019 16:14:33 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.City" table="city" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true" />
+        </property>
+        <property name="countrycode" type="string">
+            <column name="countrycode" length="3" not-null="true" />
+        </property>
+        <property name="district" type="string">
+            <column name="district" not-null="true" />
+        </property>
+        <property name="population" type="int">
+            <column name="population" not-null="true" />
+        </property>
+        <set name="countries" table="country" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="capital" />
+            </key>
+            <one-to-many class="model.Country" />
+        </set>
+    </class>
+</hibernate-mapping>

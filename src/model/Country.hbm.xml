@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21/09/2019 16:14:33 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Country" table="country" schema="public" optimistic-lock="version">
+        <id name="code" type="string">
+            <column name="code" length="3" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="city" class="model.City" fetch="select">
+            <column name="capital" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" not-null="true" />
+        </property>
+        <property name="continent" type="string">
+            <column name="continent" not-null="true" />
+        </property>
+        <property name="region" type="string">
+            <column name="region" not-null="true" />
+        </property>
+        <property name="surfacearea" type="float">
+            <column name="surfacearea" precision="8" scale="8" not-null="true" />
+        </property>
+        <property name="indepyear" type="java.lang.Short">
+            <column name="indepyear" />
+        </property>
+        <property name="population" type="int">
+            <column name="population" not-null="true" />
+        </property>
+        <property name="lifeexpectancy" type="java.lang.Float">
+            <column name="lifeexpectancy" precision="8" scale="8" />
+        </property>
+        <property name="gnp" type="big_decimal">
+            <column name="gnp" precision="10" />
+        </property>
+        <property name="gnpold" type="big_decimal">
+            <column name="gnpold" precision="10" />
+        </property>
+        <property name="localname" type="string">
+            <column name="localname" not-null="true" />
+        </property>
+        <property name="governmentform" type="string">
+            <column name="governmentform" not-null="true" />
+        </property>
+        <property name="headofstate" type="string">
+            <column name="headofstate" />
+        </property>
+        <property name="code2" type="string">
+            <column name="code2" length="2" not-null="true" />
+        </property>
+        <set name="countrylanguages" table="countrylanguage" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="countrycode" length="3" not-null="true" />
+            </key>
+            <one-to-many class="model.Countrylanguage" />
+        </set>
+    </class>
+</hibernate-mapping>
