@@ -8,6 +8,7 @@ import connection.ConnectionFactory;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.City;
 
 /**
@@ -36,8 +37,10 @@ public class CityDAO {
             stmt.setString(4, city.getDistrict());
             stmt.setInt(5, city.getPopulation());
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cidade adicionada com sucesso!");
             return true;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar cidade: "+ex);
             System.err.println("Erro: "+ex);
             return false;
         } finally {

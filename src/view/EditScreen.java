@@ -28,21 +28,143 @@ public class EditScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        idField = new javax.swing.JTextField();
+        nameField = new javax.swing.JTextField();
+        countryCodeField = new javax.swing.JTextField();
+        districtField = new javax.swing.JTextField();
+        populationField = new javax.swing.JTextField();
+        editButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(29, 50, 88));
+        jLabel1.setText("EDITAR CIDADE");
+
+        idField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        idField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        idField.setText("ID");
+        idField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idFieldActionPerformed(evt);
+            }
+        });
+
+        nameField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nameField.setText("NOME");
+        nameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameFieldActionPerformed(evt);
+            }
+        });
+
+        countryCodeField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        countryCodeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        countryCodeField.setText("COUNTRY CODE");
+        countryCodeField.setToolTipText("");
+        countryCodeField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                countryCodeFieldActionPerformed(evt);
+            }
+        });
+
+        districtField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        districtField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        districtField.setText("DISTRITO");
+        districtField.setToolTipText("");
+        districtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                districtFieldActionPerformed(evt);
+            }
+        });
+
+        populationField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        populationField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        populationField.setText("POPULAÇÃO");
+        populationField.setToolTipText("");
+        populationField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                populationFieldActionPerformed(evt);
+            }
+        });
+
+        editButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        editButton.setText("EDITAR");
+        editButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(nameField)
+                            .addComponent(idField)
+                            .addComponent(countryCodeField)
+                            .addComponent(districtField)
+                            .addComponent(populationField)
+                            .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(jLabel1)))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(countryCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(districtField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(populationField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idFieldActionPerformed
+
+    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameFieldActionPerformed
+
+    private void countryCodeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countryCodeFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_countryCodeFieldActionPerformed
+
+    private void districtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_districtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_districtFieldActionPerformed
+
+    private void populationFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_populationFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_populationFieldActionPerformed
+
+    private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_editButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -80,5 +202,12 @@ public class EditScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField countryCodeField;
+    private javax.swing.JTextField districtField;
+    private javax.swing.JButton editButton;
+    private javax.swing.JTextField idField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JTextField populationField;
     // End of variables declaration//GEN-END:variables
 }
