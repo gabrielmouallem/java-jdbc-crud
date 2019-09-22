@@ -1,6 +1,7 @@
 /build/
 /src/hibernate.cfg.xml
 /nbproject/private/private.xml
+/src/connection/ConnectionFactory.java
 
 # Compiled class file
 *.class
