@@ -5,6 +5,8 @@
  */
 package main;
 
+import view.HomeScreen;
+
 /**
  *
  * @author Gabriel Mouallem
@@ -16,6 +18,10 @@ public class MainClass {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        HomeScreen home = new HomeScreen();
+        home.dispose();
+        home.setUndecorated(true);
+        home.setVisible(true);
     }
     
 }
