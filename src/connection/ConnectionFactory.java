@@ -24,8 +24,8 @@ public class ConnectionFactory {
    static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
 
    //  Database credentials
-   static final String USER = "postgres";
-   static final String PASS = "kadlec";
+   static final String USER = "username";
+   static final String PASS = "password";
    
    
    public static Connection getConnection() {
