@@ -47,9 +47,26 @@ public class HibernateCountryLanguageDAO {
         dao.closeSession();
     }
     
- 
-    public void updateCountryLanguage (Countrylanguage CountryLanguage, CountrylanguageId id){
-        
+    // Think the update can be improvements in the future, its basic 
+    public void updateCountryLanguage (Countrylanguage CountryLanguage, CountrylanguageId id, Countrylanguage newLanguage){
+        HibernateDAO dao = new HibernateDAO();
+        try {
+            dao.load(CountryLanguage, id);
+            
+            if(newLanguage.getCountry() != null)
+            CountryLanguage.setCountry(newLanguage.getCountry()); 
+            if(newLanguage.getId() != null)
+            CountryLanguage.setId(newLanguage.getId());
+            if(newLanguage.getPercentage() != 0.0)
+            CountryLanguage.setPercentage(newLanguage.getPercentage());
+            
+            dao.update(CountryLanguage);
+            startTransaction();
+            commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dao.closeSession();
     }
     
 

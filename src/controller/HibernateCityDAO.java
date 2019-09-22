@@ -45,9 +45,30 @@ public class HibernateCityDAO {
         dao.closeSession();
     }
     
- 
-    public void updateCity (City city, int id){
-        
+    // Think the update can be improvements in the future, its basic 
+    public void updateCity (City city, int id, City newCity){
+        HibernateDAO dao = new HibernateDAO();
+        try {
+            dao.load(city, id);
+            
+            if(newCity.getName()!= null)
+            city.setName(newCity.getName()); 
+            else if(newCity.getId() != 0)
+            city.setId(newCity.getId());
+            else if(newCity.getCountrycode()!= null)
+            city.setCountrycode(newCity.getCountrycode());
+            else if(newCity.getDistrict()!= null)
+            city.setDistrict(newCity.getDistrict());
+            else if(newCity.getPopulation()!= 0)
+            city.setPopulation(newCity.getPopulation());
+            
+            dao.update(city);
+            startTransaction();
+            commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dao.closeSession();
     }
     
 
