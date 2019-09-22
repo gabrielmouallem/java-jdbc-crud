@@ -98,9 +98,11 @@ public class CityDAO {
             stmt.setString(1, name);
             stmt.setInt(2, id);
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cidade editada com sucesso!");
             return true;
         } catch (SQLException ex) {
             System.err.println("Erro: "+ex);
+            JOptionPane.showMessageDialog(null, "Erro ao editar cidade: "+ex);
             return false;
         } finally {
             ConnectionFactory.closeConnection(con, stmt);

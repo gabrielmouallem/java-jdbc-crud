@@ -168,7 +168,10 @@ public class EditScreen extends javax.swing.JFrame {
         String strId = idField.getText();
         int id = Integer.parseInt(strId);
         
+        String name = nameField.getText();
+        
         CityDAO dao = new CityDAO();
+        dao.update(id, name);
     }//GEN-LAST:event_editButtonMouseClicked
 
     /**
