@@ -16,6 +16,7 @@ public class DeleteScreen extends javax.swing.JFrame {
      */
     public DeleteScreen() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**

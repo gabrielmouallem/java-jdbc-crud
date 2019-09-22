@@ -7,6 +7,12 @@ package view;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import view.AddScreen;
+import view.DeleteScreen;
+import view.EditScreen;
+import view.HomeScreen;
+import view.ReportScreen;
+import view.SearchScreen;
 
 /**
  *
@@ -129,6 +135,9 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         searchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 searchButtonMouseEntered(evt);
             }
@@ -158,6 +167,9 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 addButtonMouseEntered(evt);
             }
@@ -187,6 +199,9 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 deleteButtonMouseEntered(evt);
             }
@@ -216,6 +231,9 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         editButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 editButtonMouseEntered(evt);
             }
@@ -245,6 +263,9 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         reportButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 reportButtonMouseEntered(evt);
             }
@@ -403,6 +424,31 @@ public class HomeScreen extends javax.swing.JFrame {
         resetExitButtonColor(exitButton);
         
     }//GEN-LAST:event_exitButtonMousePressed
+
+    private void searchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchButtonMouseClicked
+        // TODO add your handling code here:
+        new SearchScreen().setVisible(true);
+    }//GEN-LAST:event_searchButtonMouseClicked
+
+    private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
+        // TODO add your handling code here:
+        new AddScreen().setVisible(true);
+    }//GEN-LAST:event_addButtonMouseClicked
+
+    private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
+        // TODO add your handling code here:
+        new DeleteScreen().setVisible(true);
+    }//GEN-LAST:event_deleteButtonMouseClicked
+
+    private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
+        // TODO add your handling code here:
+        new EditScreen().setVisible(true);
+    }//GEN-LAST:event_editButtonMouseClicked
+
+    private void reportButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportButtonMouseClicked
+        // TODO add your handling code here:
+        new ReportScreen().setVisible(true);
+    }//GEN-LAST:event_reportButtonMouseClicked
 
     private void setButtonColor (JPanel panel){
         panel.setBackground(new java.awt.Color(220, 220, 220));
