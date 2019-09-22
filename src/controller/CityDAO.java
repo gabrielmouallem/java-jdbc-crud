@@ -85,7 +85,8 @@ public class CityDAO {
         return citys;
     }
     
-    public boolean update(City city) {
+    //We dont need to pass the objet city, only the id and name
+    public boolean update(int id, String name) {
         
         String sql = "UPDATE city SET name = ? WHERE id = ?";
         
@@ -94,8 +95,8 @@ public class CityDAO {
         
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, city.getName());
-            stmt.setInt(2, city.getId());
+            stmt.setString(1, name);
+            stmt.setInt(2, id);
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {

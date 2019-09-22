@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.CityDAO;
+
 /**
  *
  * @author Gabriel
@@ -163,7 +165,10 @@ public class EditScreen extends javax.swing.JFrame {
 
     private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
         // TODO add your handling code here:
+        String strId = idField.getText();
+        int id = Integer.parseInt(strId);
         
+        CityDAO dao = new CityDAO();
     }//GEN-LAST:event_editButtonMouseClicked
 
     /**
