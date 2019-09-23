@@ -8,6 +8,7 @@ import connection.ConnectionFactory;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.City;
 
 /**
@@ -36,8 +37,10 @@ public class CityDAO {
             stmt.setString(4, city.getDistrict());
             stmt.setInt(5, city.getPopulation());
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cidade adicionada com sucesso!");
             return true;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar cidade: "+ex);
             System.err.println("Erro: "+ex);
             return false;
         } finally {
@@ -82,7 +85,9 @@ public class CityDAO {
         return citys;
     }
     
-    public boolean update(City city) {
+    //We dont need to pass the objet city, only the id and name
+    //MUDAR POPULAÇÃO E DISTRITO
+    public boolean update(int id, String name) {
         
         String sql = "UPDATE city SET name = ? WHERE id = ?";
         
@@ -91,12 +96,14 @@ public class CityDAO {
         
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, city.getName());
-            stmt.setInt(2, city.getId());
+            stmt.setString(1, name);
+            stmt.setInt(2, id);
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cidade editada com sucesso!");
             return true;
         } catch (SQLException ex) {
             System.err.println("Erro: "+ex);
+            JOptionPane.showMessageDialog(null, "Erro ao editar cidade: "+ex);
             return false;
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
