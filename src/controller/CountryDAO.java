@@ -5,9 +5,13 @@
  */
 package controller;
 import connection.ConnectionFactory;
+import java.awt.Dimension;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import model.City;
 import model.Country;
 /**
@@ -62,7 +66,7 @@ public class CountryDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        List<Country> countrys = new ArrayList<>();
+        List<Country> countries = new ArrayList<>();
         
         try {
             
@@ -94,7 +98,7 @@ public class CountryDAO {
                 country.setGovernmentform(rs.getString("governmentform"));
                 country.setHeadofstate(rs.getString("headofstate"));
                 country.setCode2(rs.getString("code2"));
-                countrys.add(country);
+                countries.add(country);
                 
             }
             
@@ -104,23 +108,37 @@ public class CountryDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         
-        return countrys;
+                String result = "--------- TODOS OS PAÍSES REGISTRADAS: --------- \n\n";
+        result += "NOME, CONTINENTE, POPULAÇÃO, EXPECTATIVA DE VIDA, FORMA DE GOVERNO, CHEFE DE ESTADO\n\n";
+        for (int i=0; i<countries.size();i++){
+            result += countries.get(i).getName() + "\t\t" + countries.get(i).getContinent() + "\t" + countries.get(i).getPopulation() + "\t\t" + countries.get(i).getLifeexpectancy() + "\t" + countries.get(i).getGovernmentform() + "\t\t" + countries.get(i).getHeadofstate() + "\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 1500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "PESQUISA DE PAÍSES",  
+                                       JOptionPane.INFORMATION_MESSAGE);
+        
+        return countries;
     }
         
-        public List<Country> select1(float life) {
+        public List<Country> report(float min, float max) {
         
-        String sql = "SELECT * FROM country WHERE lifeexpectancy > ?";
+        String sql = "SELECT * FROM country WHERE lifeexpectancy BETWEEN ? AND ?;";
         
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        List<Country> countrys = new ArrayList<>();
+        List<Country> countries = new ArrayList<>();
         
         try {
             
             
             stmt = con.prepareStatement(sql);
-            stmt.setFloat(1, life);
+            stmt.setFloat(1, min);
+            stmt.setFloat(2, max);
             rs = stmt.executeQuery();
             
             while(rs.next()) {
@@ -147,7 +165,7 @@ public class CountryDAO {
                 country.setGovernmentform(rs.getString("governmentform"));
                 country.setHeadofstate(rs.getString("headofstate"));
                 country.setCode2(rs.getString("code2"));
-                countrys.add(country);
+                countries.add(country);
                 
             }
             
@@ -157,7 +175,19 @@ public class CountryDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         
-        return countrys;
+        String result = "--------- PAÍSES COM EXPECTATIVA DE VIDA ENTRE "+ min +" E " + max + " --------- \n\n";
+        result += "PÁIS \t\t\t EXPECTATIVA DE VIDA\n\n";
+        for (int i=0; i<countries.size();i++){
+            result += countries.get(i).getName() + " \t\t\t " + countries.get(i).getLifeexpectancy() +"\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "RELATÓRIO DE PAÍSES",  
+                                       JOptionPane.INFORMATION_MESSAGE);
+        return countries;
     }
         
      public boolean update(Country country) {
@@ -203,3 +233,4 @@ public class CountryDAO {
                 
     }
 }
+

@@ -5,10 +5,13 @@
  */
 package controller;
 import connection.ConnectionFactory;
+import java.awt.Dimension;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import model.City;
 
 /**
@@ -55,7 +58,7 @@ public class CityDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        List<City> citys = new ArrayList<>();
+        List<City> cities = new ArrayList<>();
         
         try {
             
@@ -72,7 +75,7 @@ public class CityDAO {
                 city.setCountrycode(rs.getString("countrycode"));
                 city.setDistrict(rs.getString("district"));
                 city.setPopulation(rs.getInt("population"));
-                citys.add(city);
+                cities.add(city);
                 
             }
             
@@ -82,24 +85,38 @@ public class CityDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         
-        return citys;
+        String result = "--------- TODAS AS CIDADES REGISTRADAS: --------- \n\n";
+        result += "POPULAÇÃO \t NOME \t PAÍS \t DISTRITO\n\n";
+        for (int i=0; i<cities.size();i++){
+            result += cities.get(i).getPopulation() + "\t" + cities.get(i).getName() + "\t" + cities.get(i).getCountrycode() + "\t" + cities.get(i).getDistrict() + "\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "PESQUISA DE CIDADES",  
+                                       JOptionPane.INFORMATION_MESSAGE);
+        
+        return cities;
     }
     
-    public List<City> select1(int population) {
+    public List<City> report(int min, int max) {
         
-        String sql = "SELECT * FROM city WHERE population > ?";
+        String sql = "SELECT * FROM city WHERE population BETWEEN ? AND ?";
         
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        List<City> citys = new ArrayList<>();
+        List<City> cities = new ArrayList<>();
         
         try {
             
             
             
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, population);
+            stmt.setInt(1, min);
+            stmt.setInt(2, max);
             rs = stmt.executeQuery();
             
             while(rs.next()) {
@@ -111,7 +128,7 @@ public class CityDAO {
                 city.setCountrycode(rs.getString("countrycode"));
                 city.setDistrict(rs.getString("district"));
                 city.setPopulation(rs.getInt("population"));
-                citys.add(city);
+                cities.add(city);
                 
             }
             
@@ -120,8 +137,19 @@ public class CityDAO {
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        
-        return citys;
+        String result = "--------- CIDADES COM POPULAÇÃO ENTRE "+ min +" E " + max + " --------- \n\n";
+        result += "CIDADE \t\t POPULAÇÃO\n\n";
+        for (int i=0; i<cities.size();i++){
+            result += cities.get(i).getName() + "\t\t" + cities.get(i).getPopulation() + "\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "RELATÓRIO DE CIDADES",  
+                                       JOptionPane.INFORMATION_MESSAGE);
+        return cities;
     }
     
     //We dont need to pass the objet city, only the id and name

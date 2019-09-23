@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import model.Countrylanguage;
 import model.CountrylanguageId;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +29,7 @@ public class CountryLanguageDAO {
         con = ConnectionFactory.getConnection();
     }
     
-    public boolean save(Countrylanguage cl) {
+    public boolean save(String countryCode, String language, Boolean isOficial, float percentage) {
         
         String sql = "INSERT INTO countrylanguage (countrycode, language, isofficial, percentage) VALUES (?, ?, ?, ?)";
         
@@ -36,13 +37,15 @@ public class CountryLanguageDAO {
         
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, cl.getId().getCountrycode());
-            stmt.setString(2, cl.getId().getLanguage());
-            stmt.setBoolean(3, cl.isIsofficial());
-            stmt.setFloat(4, cl.getPercentage());
+            stmt.setString(1, countryCode);
+            stmt.setString(2, language);
+            stmt.setBoolean(3, isOficial);
+            stmt.setFloat(4, percentage);
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Língua adicionada com sucesso!");
             return true;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar língua: " +ex);
             System.err.println("Erro: "+ex);
             return false;
         } finally {
@@ -98,7 +101,7 @@ public class CountryLanguageDAO {
         textArea.setWrapStyleWord(true); 
         scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
         JOptionPane.showMessageDialog(null, scrollPane, "PESQUISA DE LÍNGUAS",  
-                                       JOptionPane.YES_NO_OPTION);
+                                       JOptionPane.INFORMATION_MESSAGE);
         return cls;
     }
     
@@ -128,20 +131,23 @@ public class CountryLanguageDAO {
                 
     }
     
-    public boolean delete(Countrylanguage cl) {
+    public boolean delete(String languageStr) {
         
-        String sql = "DELETE FROM countrylanguage WHERE countrycode = ? and language = ?";
-        
+        String sql = "DELETE FROM countrylanguage WHERE language = ?";
 	
+        //Capitalizing the first letter of the input
+        String language = languageStr.substring(0, 1).toUpperCase() + languageStr.substring(1);
+        
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, cl.getId().getCountrycode());
-            stmt.setString(2, cl.getId().getLanguage());
+            stmt.setString(1, language);
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "A ação foi concluída com sucesso, porém deve-se verificar se o nome da língua foi escrito corretamente, pois caso contrário ela não será deletada!!");
             return true;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: "+ex);
             System.err.println("Erro: "+ex);
             return false;
         } finally {
