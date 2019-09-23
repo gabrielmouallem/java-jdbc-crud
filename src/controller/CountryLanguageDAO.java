@@ -90,9 +90,9 @@ public class CountryLanguageDAO {
         }
         
         String result = "--------- TODAS AS LÍNGUAS REGISTRADAS: --------- \n\n";
-        result += "LÍNGUA, PÁIS, É OFICIAL?, PORCENTAGEM \n\n";
+        result += "LÍNGUA -------- PÁIS ------------ É OFICIAL ---------- (%) \n\n";
         for (int i=0; i<cls.size();i++){
-            result += cls.get(i).getId().getLanguage()+", " + cls.get(i).getId().getCountrycode() + ",      "+ cls.get(i).isIsofficial()+ ",             "+ cls.get(i).getPercentage() +"\n";
+            result += cls.get(i).getId().getLanguage()+"\t" + cls.get(i).getId().getCountrycode() + "\t"+ cls.get(i).isIsofficial()+ "\t"+ cls.get(i).getPercentage() +"\n";
         }
         JTextArea textArea = new JTextArea(result);
         JScrollPane scrollPane = new JScrollPane(textArea);  
