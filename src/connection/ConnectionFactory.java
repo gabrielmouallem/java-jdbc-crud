@@ -25,7 +25,7 @@ public class ConnectionFactory {
 
    //  Database credentials
    static final String USER = "postgres";
-   static final String PASS = "kadlec";
+   static final String PASS = "nb3alita";
    
    
    public static Connection getConnection() {

@@ -6,9 +6,13 @@
 package controller;
 
 import connection.ConnectionFactory;
+import java.awt.Dimension;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import model.City;
 import model.Country;
 import model.Countrylanguage;
@@ -80,10 +84,23 @@ public class CountryLanguageDAO {
             
         } catch (SQLException ex) {
             System.err.println("Erro: "+ex);
+            JOptionPane.showMessageDialog(null, "Erro: "+ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         
+        String result = "--------- TODAS AS LÍNGUAS REGISTRADAS: --------- \n\n";
+        result += "PÁIS, É OFICIAL?, PORCENTAGEM \n\n";
+        for (int i=0; i<cls.size();i++){
+            result += cls.get(i).getId().getCountrycode() + ",      "+ cls.get(i).isIsofficial()+ ",             "+ cls.get(i).getPercentage() +"\n";
+        }
+        JTextArea textArea = new JTextArea(result);
+        JScrollPane scrollPane = new JScrollPane(textArea);  
+        textArea.setLineWrap(true);  
+        textArea.setWrapStyleWord(true); 
+        scrollPane.setPreferredSize( new Dimension( 500, 250 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, "PESQUISA DE LÍNGUAS",  
+                                       JOptionPane.YES_NO_OPTION);
         return cls;
     }
     
