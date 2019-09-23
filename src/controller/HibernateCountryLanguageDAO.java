@@ -14,6 +14,7 @@ package controller;
 import model.CountrylanguageId;
 import model.Countrylanguage;
 import controller.HibernateDAO;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class HibernateCountryLanguageDAO {
@@ -24,13 +25,14 @@ public class HibernateCountryLanguageDAO {
     public boolean addCountryLanguage (Countrylanguage CountryLanguage){
         HibernateDAO dao = new HibernateDAO();
         try {
-            startTransaction();
+            Session session;
+            session = dao.getSession();
+            session.beginTransaction();
             dao.save(CountryLanguage);
-            commitTransaction();
+            transaction.commit();
             return true;
         }
         catch (Exception e){
-            transaction.rollback();
             e.printStackTrace();
             return false;
         }
@@ -42,14 +44,13 @@ public class HibernateCountryLanguageDAO {
     public boolean deleteCountryLanguage (Countrylanguage CountryLanguage, CountrylanguageId id){
         HibernateDAO dao = new HibernateDAO();
         try {
-            startTransaction();
+          // startTransaction();
             dao.load(CountryLanguage, id);
             dao.delete(CountryLanguage);
-            commitTransaction();
+           // commitTransaction();
             return true;
         } 
         catch (Exception e){
-            transaction.rollback();
             e.printStackTrace();
             return false;
         }
@@ -62,7 +63,7 @@ public class HibernateCountryLanguageDAO {
     public boolean updateCountryLanguage (Countrylanguage countryLanguage, CountrylanguageId id, Countrylanguage newLanguage){
         HibernateDAO dao = new HibernateDAO();
         try {
-            startTransaction();
+           // startTransaction();
             dao.load(countryLanguage, id);
             if(newLanguage.getCountry() != null)
             countryLanguage.setCountry(newLanguage.getCountry()); 
@@ -71,11 +72,10 @@ public class HibernateCountryLanguageDAO {
             if(newLanguage.getPercentage() != 0.0)
             countryLanguage.setPercentage(newLanguage.getPercentage());
             dao.update(countryLanguage);
-            commitTransaction();
+           // commitTransaction();
             return true;
         } 
         catch (Exception e){
-            transaction.rollback();
             e.printStackTrace();
             return false;
         }
@@ -83,36 +83,6 @@ public class HibernateCountryLanguageDAO {
             dao.closeSession();
         }
     }
-    
-    public static void inserir() {
-    
-    Countrylanguage lingua = new Countrylanguage();
-    lingua.setIsofficial(true);
-    lingua.setPercentage(70);
-    
-    CountrylanguageId id = new CountrylanguageId();
-    id.setCountrycode("BRA");
-    id.setLanguage("Lingua do P");
-    lingua.setId(id);
-    
-    HibernateCountryLanguageDAO dao = new HibernateCountryLanguageDAO();
-    
-    if(dao.addCountryLanguage(lingua)) {
-        System.out.println("Salvo com sucesso");
-    } else {
-        System.out.println("Erro ao salvar");
-    }
-}
-    
-
-    public void startTransaction(){
-        HibernateDAO dao = new HibernateDAO();
-        transaction = dao.getSession().beginTransaction();
-    }
-    
-
-    public void commitTransaction (){
-        transaction.commit();
-    }
+     
 }
 
