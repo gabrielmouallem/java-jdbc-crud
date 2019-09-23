@@ -13,8 +13,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import model.City;
-import model.Country;
 import model.Countrylanguage;
 import model.CountrylanguageId;
 
