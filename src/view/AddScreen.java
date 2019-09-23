@@ -7,7 +7,6 @@ package view;
 
 import connection.ConnectionFactory;
 import controller.CountryLanguageDAO;
-import controller.HibernateCountryLanguageDAO;
 import java.awt.Dimension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
