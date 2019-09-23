@@ -86,6 +86,7 @@ public class CityDAO {
     }
     
     //We dont need to pass the objet city, only the id and name
+    //MUDAR POPULAÇÃO E DISTRITO
     public boolean update(int id, String name) {
         
         String sql = "UPDATE city SET name = ? WHERE id = ?";
