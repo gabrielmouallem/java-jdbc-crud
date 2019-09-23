@@ -5,7 +5,6 @@
  */
 package view;
 
-import controller.CityDAO;
 import controller.CountryLanguageDAO;
 
 /**
@@ -181,7 +180,7 @@ public class EditScreen extends javax.swing.JFrame {
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(EditScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditScreen.class.getName()).log(java.util.logging.Level.SEVERE, editButton;
+            //java.util.logging.Logger.getLogger(EditScreen.class.getName()).log(java.util.logging.Level.SEVERE, editButton;
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EditScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
