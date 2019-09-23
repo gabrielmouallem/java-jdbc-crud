@@ -21,33 +21,37 @@ public class HibernateCountryLanguageDAO {
     CountrylanguageId id;
     Transaction transaction;
     
-    public void addCountryLanguage (Countrylanguage CountryLanguage){
+    public boolean addCountryLanguage (Countrylanguage CountryLanguage){
         HibernateDAO dao = new HibernateDAO();
         try {
             startTransaction();
             dao.save(CountryLanguage);
             commitTransaction();
+            return true;
         }
         catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return false;
         }
         finally {
             dao.closeSession();
         }
     }
     
-    public void deleteCountryLanguage (Countrylanguage CountryLanguage, CountrylanguageId id){
+    public boolean deleteCountryLanguage (Countrylanguage CountryLanguage, CountrylanguageId id){
         HibernateDAO dao = new HibernateDAO();
         try {
             startTransaction();
             dao.load(CountryLanguage, id);
             dao.delete(CountryLanguage);
             commitTransaction();
+            return true;
         } 
         catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return false;
         }
         finally {
             dao.closeSession();
@@ -55,7 +59,7 @@ public class HibernateCountryLanguageDAO {
     }
     
     // Think the update can be improvements in the future, its basic 
-    public void updateCountryLanguage (Countrylanguage countryLanguage, CountrylanguageId id, Countrylanguage newLanguage){
+    public boolean updateCountryLanguage (Countrylanguage countryLanguage, CountrylanguageId id, Countrylanguage newLanguage){
         HibernateDAO dao = new HibernateDAO();
         try {
             startTransaction();
@@ -68,15 +72,37 @@ public class HibernateCountryLanguageDAO {
             countryLanguage.setPercentage(newLanguage.getPercentage());
             dao.update(countryLanguage);
             commitTransaction();
+            return true;
         } 
         catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return false;
         }
         finally {
             dao.closeSession();
         }
     }
+    
+    public static void inserir() {
+    
+    Countrylanguage lingua = new Countrylanguage();
+    lingua.setIsofficial(true);
+    lingua.setPercentage(70);
+    
+    CountrylanguageId id = new CountrylanguageId();
+    id.setCountrycode("BRA");
+    id.setLanguage("Lingua do P");
+    lingua.setId(id);
+    
+    HibernateCountryLanguageDAO dao = new HibernateCountryLanguageDAO();
+    
+    if(dao.addCountryLanguage(lingua)) {
+        System.out.println("Salvo com sucesso");
+    } else {
+        System.out.println("Erro ao salvar");
+    }
+}
     
 
     public void startTransaction(){
