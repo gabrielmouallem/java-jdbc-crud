@@ -24,49 +24,58 @@ public class HibernateCountryLanguageDAO {
     public void addCountryLanguage (Countrylanguage CountryLanguage){
         HibernateDAO dao = new HibernateDAO();
         try {
-            dao.save(CountryLanguage);
             startTransaction();
+            dao.save(CountryLanguage);
             commitTransaction();
         }
         catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
         }
-        dao.closeSession();
+        finally {
+            dao.closeSession();
+        }
     }
     
     public void deleteCountryLanguage (Countrylanguage CountryLanguage, CountrylanguageId id){
         HibernateDAO dao = new HibernateDAO();
         try {
+            startTransaction();
             dao.load(CountryLanguage, id);
             dao.delete(CountryLanguage);
-            startTransaction();
             commitTransaction();
-        } catch (Exception e){
+        } 
+        catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
         }
-        dao.closeSession();
+        finally {
+            dao.closeSession();
+        }
     }
     
     // Think the update can be improvements in the future, its basic 
-    public void updateCountryLanguage (Countrylanguage CountryLanguage, CountrylanguageId id, Countrylanguage newLanguage){
+    public void updateCountryLanguage (Countrylanguage countryLanguage, CountrylanguageId id, Countrylanguage newLanguage){
         HibernateDAO dao = new HibernateDAO();
         try {
-            dao.load(CountryLanguage, id);
-            
-            if(newLanguage.getCountry() != null)
-            CountryLanguage.setCountry(newLanguage.getCountry()); 
-            if(newLanguage.getId() != null)
-            CountryLanguage.setId(newLanguage.getId());
-            if(newLanguage.getPercentage() != 0.0)
-            CountryLanguage.setPercentage(newLanguage.getPercentage());
-            
-            dao.update(CountryLanguage);
             startTransaction();
+            dao.load(countryLanguage, id);
+            if(newLanguage.getCountry() != null)
+            countryLanguage.setCountry(newLanguage.getCountry()); 
+            if(newLanguage.getId() != null)
+            countryLanguage.setId(newLanguage.getId());
+            if(newLanguage.getPercentage() != 0.0)
+            countryLanguage.setPercentage(newLanguage.getPercentage());
+            dao.update(countryLanguage);
             commitTransaction();
-        } catch (Exception e) {
+        } 
+        catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
         }
-        dao.closeSession();
+        finally {
+            dao.closeSession();
+        }
     }
     
 
