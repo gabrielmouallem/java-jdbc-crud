@@ -15,7 +15,7 @@ public class HibernateDAO {
     Session session;
 
     public HibernateDAO() {
-        session = HibernateUtil.getSessionFactory().openSession();
+        session = (Session) HibernateUtil.getSessionFactory().openSession();
     }
     
     public Session getSession() {
