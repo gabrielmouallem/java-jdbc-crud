@@ -19,36 +19,48 @@ public class HibernateCityDAO {
     City city;
     Transaction transaction;
     
-    public void addCity (City city){
+    public boolean addCity (City city){
         HibernateDAO dao = new HibernateDAO();
         try {
-            dao.save(city);
             startTransaction();
+            dao.save(city);
             commitTransaction();
+            return true;
         }
         catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
+            return false;
         }
-        dao.closeSession();
+        finally {
+            dao.closeSession();
+        }
     }
     
-    public void deleteCity (City city, int id){
+    public boolean deleteCity (City city, int id){
         HibernateDAO dao = new HibernateDAO();
         try {
+            startTransaction();
             dao.load(city, id);
             dao.delete(city);
-            startTransaction();
             commitTransaction();
-        } catch (Exception e){
+            return true;
+        } 
+        catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
+            return false;
         }
-        dao.closeSession();
+        finally {
+            dao.closeSession();
+        }
     }
     
     // Think the update can be improvements in the future, its basic 
-    public void updateCity (City city, int id, City newCity){
+    public boolean updateCity (City city, int id, City newCity){
         HibernateDAO dao = new HibernateDAO();
         try {
+            startTransaction();
             dao.load(city, id);
             
             if(newCity.getName()!= null)
@@ -63,12 +75,17 @@ public class HibernateCityDAO {
             city.setPopulation(newCity.getPopulation());
             
             dao.update(city);
-            startTransaction();
             commitTransaction();
-        } catch (Exception e) {
+            return true;
+        } 
+        catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
+            return false;
         }
-        dao.closeSession();
+        finally {
+            dao.closeSession();
+        }
     }
     
 
