@@ -25,10 +25,6 @@ import model.CountrylanguageId;
  * @author Gabriel
  */
 public class AddScreen extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AddScreen
-     */
     public AddScreen() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
