@@ -5,8 +5,9 @@
  */
 package view;
 
-import controller.CityDAO;
-import model.City;
+import controller.HibernateCountryLanguageDAO;
+import model.Countrylanguage;
+import model.CountrylanguageId;
 
 /**
  *
@@ -148,7 +149,6 @@ public class AddScreen extends javax.swing.JFrame {
 
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_addButtonMouseClicked
 
     /**

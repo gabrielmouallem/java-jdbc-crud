@@ -85,6 +85,45 @@ public class CityDAO {
         return citys;
     }
     
+    public List<City> select1(int population) {
+        
+        String sql = "SELECT * FROM city WHERE population > ?";
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<City> citys = new ArrayList<>();
+        
+        try {
+            
+            
+            
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, population);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()) {
+                
+                City city = new City();
+                
+                city.setId(rs.getInt("id"));
+                city.setName(rs.getString("name"));
+                city.setCountrycode(rs.getString("countrycode"));
+                city.setDistrict(rs.getString("district"));
+                city.setPopulation(rs.getInt("population"));
+                citys.add(city);
+                
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println("Erro: "+ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return citys;
+    }
+    
     //We dont need to pass the objet city, only the id and name
     //MUDAR POPULAÇÃO E DISTRITO
     public boolean update(int id, String name) {
@@ -130,6 +169,6 @@ public class CityDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
                 
-    }
+    }       
     
 }

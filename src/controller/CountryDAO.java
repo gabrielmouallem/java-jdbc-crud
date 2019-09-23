@@ -24,14 +24,14 @@ public class CountryDAO {
     
     public boolean save(Country country) {
         
-        String sql = "INSERT INTO country (code, city, name, continent, region, surfacearea, indepyear, population, lifeexpectancy, gnp, gnpold, localname, governmentform, headofstate, code2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO country (code, capital, name, continent, region, surfacearea, indepyear, population, lifeexpectancy, gnp, gnpold, localname, governmentform, headofstate, code2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, country.getCode());
-            stmt.setObject(2, country.getCity());
+            stmt.setInt(2, country.getCity().getId());
             stmt.setString(3, country.getName());
             stmt.setString(4, country.getContinent());
             stmt.setString(5, country.getRegion());
@@ -75,7 +75,65 @@ public class CountryDAO {
                 Country country = new Country();
                 
                 country.setCode(rs.getString("code"));
-                country.setCity((City) rs.getObject("city"));
+                
+                City city = new City();
+                city.setId(rs.getInt("capital"));
+                
+                country.setCity(city);
+                
+                country.setName(rs.getString("name"));
+                country.setContinent(rs.getString("continent"));
+                country.setRegion(rs.getString("region"));
+                country.setSurfacearea(rs.getFloat("surfacearea"));
+                country.setIndepyear(rs.getShort("indepyear"));
+                country.setPopulation(rs.getInt("population"));
+                country.setLifeexpectancy(rs.getFloat("lifeexpectancy"));
+                country.setGnp(rs.getBigDecimal("gnp"));
+                country.setGnpold(rs.getBigDecimal("gnpold"));
+                country.setLocalname(rs.getString("localname"));
+                country.setGovernmentform(rs.getString("governmentform"));
+                country.setHeadofstate(rs.getString("headofstate"));
+                country.setCode2(rs.getString("code2"));
+                countrys.add(country);
+                
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println("Erro: "+ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return countrys;
+    }
+        
+        public List<Country> select1(float life) {
+        
+        String sql = "SELECT * FROM country WHERE lifeexpectancy > ?";
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Country> countrys = new ArrayList<>();
+        
+        try {
+            
+            
+            stmt = con.prepareStatement(sql);
+            stmt.setFloat(1, life);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()) {
+                
+                Country country = new Country();
+                
+                country.setCode(rs.getString("code"));
+                
+                City city = new City();
+                city.setId(rs.getInt("capital"));
+                
+                country.setCity(city);
+                
                 country.setName(rs.getString("name"));
                 country.setContinent(rs.getString("continent"));
                 country.setRegion(rs.getString("region"));
