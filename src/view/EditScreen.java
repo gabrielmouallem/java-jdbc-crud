@@ -6,6 +6,7 @@
 package view;
 
 import controller.CityDAO;
+import controller.CountryLanguageDAO;
 
 /**
  *
@@ -31,11 +32,14 @@ public class EditScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        idField = new javax.swing.JTextField();
-        nameField = new javax.swing.JTextField();
+        langField = new javax.swing.JTextField();
         countryCodeField = new javax.swing.JTextField();
-        districtField = new javax.swing.JTextField();
-        addButton = new javax.swing.JButton();
+        percentageField = new javax.swing.JTextField();
+        editButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,27 +47,18 @@ public class EditScreen extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(29, 50, 88));
         jLabel1.setText("EDITAR LÍNGUA");
 
-        idField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        idField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        idField.setText("ID");
-        idField.addActionListener(new java.awt.event.ActionListener() {
+        langField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        langField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        langField.setText("LÍNGUA");
+        langField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idFieldActionPerformed(evt);
-            }
-        });
-
-        nameField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        nameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        nameField.setText("PAÍS");
-        nameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameFieldActionPerformed(evt);
+                langFieldActionPerformed(evt);
             }
         });
 
         countryCodeField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         countryCodeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        countryCodeField.setText("É OFICIAL? (BOOL)");
+        countryCodeField.setText("COUNTRY CODE");
         countryCodeField.setToolTipText("");
         countryCodeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,81 +66,99 @@ public class EditScreen extends javax.swing.JFrame {
             }
         });
 
-        districtField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        districtField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        districtField.setText("PORCENTAGEM");
-        districtField.setToolTipText("");
-        districtField.addActionListener(new java.awt.event.ActionListener() {
+        percentageField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        percentageField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        percentageField.setText("PORCENTAGEM");
+        percentageField.setToolTipText("");
+        percentageField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                districtFieldActionPerformed(evt);
+                percentageFieldActionPerformed(evt);
             }
         });
 
-        addButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        addButton.setText("ADICIONAR");
-        addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        editButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        editButton.setText("EDITAR");
+        editButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addButtonMouseClicked(evt);
+                editButtonMouseClicked(evt);
             }
         });
+
+        jLabel2.setText("Mude a porcentagem de pessoas");
+
+        jLabel3.setText("que falam uma determinada língua");
+
+        jLabel4.setText("Para isso passe o country code");
+
+        jLabel5.setText("e o nome da língua a ser editada");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(121, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nameField)
-                        .addComponent(idField)
-                        .addComponent(countryCodeField)
-                        .addComponent(districtField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(107, 107, 107))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(langField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(percentageField)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                    .addComponent(countryCodeField)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(percentageField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel5)
+                .addGap(17, 17, 17)
                 .addComponent(countryCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(districtField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addComponent(langField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
+    private void langFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_idFieldActionPerformed
-
-    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameFieldActionPerformed
+    }//GEN-LAST:event_langFieldActionPerformed
 
     private void countryCodeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countryCodeFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_countryCodeFieldActionPerformed
 
-    private void districtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_districtFieldActionPerformed
+    private void percentageFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_percentageFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_districtFieldActionPerformed
+    }//GEN-LAST:event_percentageFieldActionPerformed
 
-    private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
+    private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
         // TODO add your handling code here:
-
-    }//GEN-LAST:event_addButtonMouseClicked
+        CountryLanguageDAO dao = new CountryLanguageDAO();
+        String lang = langField.getText();
+        String code = countryCodeField.getText();
+        String strPercentage = percentageField.getText();
+        float percentage = Float.parseFloat(strPercentage);
+        
+        dao.update(code, percentage, lang);
+    }//GEN-LAST:event_editButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -168,7 +181,7 @@ public class EditScreen extends javax.swing.JFrame {
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(EditScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditScreen.class.getName()).log(java.util.logging.Level.SEVERE, editButton;
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EditScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -183,11 +196,14 @@ public class EditScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
     private javax.swing.JTextField countryCodeField;
-    private javax.swing.JTextField districtField;
-    private javax.swing.JTextField idField;
+    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField nameField;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField langField;
+    private javax.swing.JTextField percentageField;
     // End of variables declaration//GEN-END:variables
 }
