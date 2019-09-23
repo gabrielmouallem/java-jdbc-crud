@@ -28,14 +28,14 @@ public class CountryLanguageDAO {
     
     public boolean save(Countrylanguage cl) {
         
-        String sql = "INSERT INTO countrylanguage (id, country, isofficial, percentage) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO countrylanguage (countrycode, language, isofficial, percentage) VALUES (?, ?, ?, ?)";
         
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setObject(1, cl.getId());
-            stmt.setObject(2, cl.getCountry());
+            stmt.setString(1, cl.getId().getCountrycode());
+            stmt.setString(2, cl.getId().getLanguage());
             stmt.setBoolean(3, cl.isIsofficial());
             stmt.setFloat(4, cl.getPercentage());
             stmt.executeUpdate();
@@ -67,8 +67,11 @@ public class CountryLanguageDAO {
                 
                 Countrylanguage cl = new Countrylanguage();
                 
-                cl.setId((CountrylanguageId) rs.getObject("id"));
-                cl.setCountry((Country) rs.getObject("country"));
+                CountrylanguageId clid = new CountrylanguageId();
+                clid.setCountrycode(rs.getString("countrycode"));
+                clid.setLanguage(rs.getString("language"));
+                cl.setId(clid);
+                
                 cl.setIsofficial(rs.getBoolean("isofficial"));
                 cl.setPercentage(rs.getFloat("percentage"));
                 cls.add(cl);
@@ -86,7 +89,7 @@ public class CountryLanguageDAO {
     
     public boolean update(Countrylanguage cl) {
         
-        String sql = "UPDATE countrylanguage SET percentage = ? WHERE id = ?";
+        String sql = "UPDATE countrylanguage SET percentage = ? WHERE countrycode = ? and language = ?";
         
 	
         PreparedStatement stmt = null;
@@ -94,7 +97,8 @@ public class CountryLanguageDAO {
         try {
             stmt = con.prepareStatement(sql);
             stmt.setFloat(1, cl.getPercentage());
-            stmt.setObject(2, cl.getId());
+            stmt.setString(2, cl.getId().getCountrycode());
+            stmt.setString(3, cl.getId().getLanguage());
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -108,14 +112,15 @@ public class CountryLanguageDAO {
     
     public boolean delete(Countrylanguage cl) {
         
-        String sql = "DELETE FROM countrylanguage WHERE id = ?";
+        String sql = "DELETE FROM countrylanguage WHERE countrycode = ? and language = ?";
         
 	
         PreparedStatement stmt = null;
         
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setObject(1, cl.getId());
+            stmt.setString(1, cl.getId().getCountrycode());
+            stmt.setString(2, cl.getId().getLanguage());
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
