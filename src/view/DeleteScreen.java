@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.CountryLanguageDAO;
+
 /**
  *
  * @author Gabriel
@@ -29,7 +31,7 @@ public class DeleteScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        idField = new javax.swing.JTextField();
+        langField = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,12 +40,12 @@ public class DeleteScreen extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(29, 50, 88));
         jLabel1.setText("DELETAR LÍNGUA");
 
-        idField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        idField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        idField.setText("ID");
-        idField.addActionListener(new java.awt.event.ActionListener() {
+        langField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        langField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        langField.setText("NOME DA LÍNGUA");
+        langField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idFieldActionPerformed(evt);
+                langFieldActionPerformed(evt);
             }
         });
 
@@ -62,15 +64,14 @@ public class DeleteScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(addButton))))
+                        .addGap(129, 129, 129)
+                        .addComponent(addButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(langField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -78,9 +79,9 @@ public class DeleteScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addGap(56, 56, 56)
-                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(53, 53, 53)
+                .addComponent(langField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(76, Short.MAX_VALUE))
         );
@@ -88,12 +89,14 @@ public class DeleteScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
+    private void langFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_idFieldActionPerformed
+    }//GEN-LAST:event_langFieldActionPerformed
 
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
+        CountryLanguageDAO dao = new CountryLanguageDAO();
+        dao.delete(langField.getText());
     }//GEN-LAST:event_addButtonMouseClicked
 
     /**
@@ -133,7 +136,7 @@ public class DeleteScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
-    private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField langField;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,19 @@
  */
 package view;
 
+import connection.ConnectionFactory;
+import controller.CountryLanguageDAO;
 import controller.HibernateCountryLanguageDAO;
+import java.awt.Dimension;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import model.Country;
 import model.Countrylanguage;
 import model.CountrylanguageId;
 
@@ -32,27 +44,19 @@ public class AddScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        idField = new javax.swing.JTextField();
         nameField = new javax.swing.JTextField();
         countryCodeField = new javax.swing.JTextField();
-        districtField = new javax.swing.JTextField();
+        percentageField = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        isOficialComboBox = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        idField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        idField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        idField.setText("ID");
-        idField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idFieldActionPerformed(evt);
-            }
-        });
-
         nameField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         nameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        nameField.setText("PAÍS");
+        nameField.setText("NOME");
         nameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameFieldActionPerformed(evt);
@@ -61,7 +65,7 @@ public class AddScreen extends javax.swing.JFrame {
 
         countryCodeField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         countryCodeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        countryCodeField.setText("É OFICIAL? (BOOL)");
+        countryCodeField.setText("COUNTRY CODE");
         countryCodeField.setToolTipText("");
         countryCodeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,13 +73,13 @@ public class AddScreen extends javax.swing.JFrame {
             }
         });
 
-        districtField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        districtField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        districtField.setText("PORCENTAGEM");
-        districtField.setToolTipText("");
-        districtField.addActionListener(new java.awt.event.ActionListener() {
+        percentageField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        percentageField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        percentageField.setText("PORCENTAGEM");
+        percentageField.setToolTipText("");
+        percentageField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                districtFieldActionPerformed(evt);
+                percentageFieldActionPerformed(evt);
             }
         });
 
@@ -91,6 +95,12 @@ public class AddScreen extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(29, 50, 88));
         jLabel1.setText("ADICIONAR LÍNGUA");
 
+        isOficialComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        isOficialComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "true", "false" }));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("É OFICIAL?");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,38 +112,42 @@ public class AddScreen extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(95, 95, 95))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nameField)
-                            .addComponent(idField)
-                            .addComponent(countryCodeField)
-                            .addComponent(districtField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(115, 115, 115))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(percentageField, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                            .addComponent(nameField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(countryCodeField, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(115, 115, 115))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(addButton)
+                        .addGap(127, 127, 127))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(isOficialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(164, 164, 164))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
+                .addComponent(countryCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(countryCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(isOficialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(districtField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(percentageField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idFieldActionPerformed
 
     private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
@@ -143,12 +157,21 @@ public class AddScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_countryCodeFieldActionPerformed
 
-    private void districtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_districtFieldActionPerformed
+    private void percentageFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_percentageFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_districtFieldActionPerformed
+    }//GEN-LAST:event_percentageFieldActionPerformed
 
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
+        CountryLanguageDAO dao = new CountryLanguageDAO();
+        
+        String strIsOficial = isOficialComboBox.getSelectedItem().toString();
+        Boolean isOficial = Boolean.parseBoolean(strIsOficial);
+        
+        String strPercentage = percentageField.getText();
+        float percentage = Float.parseFloat(strPercentage);
+        
+        dao.save(countryCodeField.getText(), nameField.getText(), isOficial, percentage);
     }//GEN-LAST:event_addButtonMouseClicked
 
     /**
@@ -189,9 +212,10 @@ public class AddScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JTextField countryCodeField;
-    private javax.swing.JTextField districtField;
-    private javax.swing.JTextField idField;
+    private javax.swing.JComboBox<String> isOficialComboBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField nameField;
+    private javax.swing.JTextField percentageField;
     // End of variables declaration//GEN-END:variables
 }
